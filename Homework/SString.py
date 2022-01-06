@@ -1,12 +1,12 @@
-def sortAllWords(given_string):
-    words_list = given_string.split()
-    words_list.sort()
+print('')
+str = input('\t\tEnter the String : ')
 
-    print ("Sorted string words are : ")
+string = len(str)
+for i in range(string):
+    for j in range(string-1):
+        if str[j] > str[j+1]:
+            str = str[:j] + str[j+1] + str[j] + str[j+2:]
+            
 
-    for word in words_list:
-        print(word," ")
-
-
-user_string = input("Enter input string : ")
-sortAllWords(user_string)
+print("\t\tSorted String : ", str)
+print('')
