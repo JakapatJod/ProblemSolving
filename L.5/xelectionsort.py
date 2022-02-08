@@ -15,7 +15,6 @@ def selection_sort(nums):
             odd.append(current)
 	
     nums = even + odd
-
     return nums
     
 nums = [14,46,43,27,57,41,45,21,70]
