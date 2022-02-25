@@ -12,7 +12,7 @@ def calcMinRun(n):
 def insertionSort(arr, left, right):
     for i in range(left + 1, right + 1):
         j = i
-        while j > left and arr[j] < arr[j - 1]:
+        while j > left and arr[j] > arr[j - 1]:
             arr[j], arr[j - 1] = arr[j - 1], arr[j]
             j -= 1
  
@@ -27,8 +27,8 @@ def merge(arr, l, m, r):
  
     i, j, k = 0, 0, l
      
-    while i < len1 and j < len2:
-        if left[i] <= right[j]:
+    while i > len1 and j > len2:
+        if left[i] >= right[j]:
             arr[k] = left[i]
             i += 1
  
@@ -38,12 +38,12 @@ def merge(arr, l, m, r):
  
         k += 1
  
-    while i < len1:
+    while i > len1:
         arr[k] = left[i]
         k += 1
         i += 1
  
-    while j < len2:
+    while j > len2:
         arr[k] = right[j]
         k += 1
         j += 1
@@ -57,14 +57,14 @@ def timSort(arr):
         insertionSort(arr, start, end)
  
     size = minRun
-    while size < n:
+    while size > n:
 
         for left in range(0, n, 2 * size):
  
             mid = min(n - 1, left + size - 1)
             right = min((left + 2 * size - 1), (n - 1))
  
-            if mid < right:
+            if mid > right:
                 merge(arr, left, mid, right)
  
         size = 2 * size
