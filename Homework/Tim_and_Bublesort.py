@@ -125,5 +125,5 @@ for x in nlist:
     a.append(x)
 
 if __name__ == "__main__":
-    bubbleSort_time()
     tim_time()
+    bubbleSort_time()
