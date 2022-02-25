@@ -68,7 +68,7 @@ def timSort(arr):
         size = 2 * size
 if __name__ == "__main__":
  
-    a = str(input('What ? :'))
+    a = str(input('Enter student ID and your name ( Tim Sort ) : '))
     arr = []
     for c in a:
         arr.append(c)
@@ -114,7 +114,7 @@ bubbleSort(nlist)
     print('Sort : ',a)
     print('bubble sort list: {}'.format(min(times)))
 
-nlist = str(input('What do u want to sort ? :'))
+nlist = str(input('Enter student ID and your name ( bubble sort ) : '))
 
 a = []
 for x in nlist:
