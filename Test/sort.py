@@ -1,7 +1,7 @@
 list = []
 number = int(input("Please Enter the Total Number of Elements : "))
 for i in range(number):
-    value = int(input("Please enter the %d Element of List1 : " %i))
+    value = input("Please enter the %d Element of List1 : " %i)
     list.append(value)
 
 for i in range(number - 1):

@@ -68,47 +68,25 @@ def timSort(arr):
                 merge(arr, left, mid, right)
  
         size = 2 * size
- 
+def tim_TIME():
+    SETUP_CODE = """from __main__ import timSort,arr"""
+
+    TEST_CODE ="""
+
+timSort(arr)
+"""
+    
+    times = timeit.repeat(setup=SETUP_CODE, stmt=TEST_CODE, repeat=1, number=10000)
+    print('Reverse String using while loop: {}'.format(min(times)))
+
 if __name__ == "__main__":
- 
-    arr = [-2, 7, 15, -14, 0, 15, 0,
-           7, -7, -4, -13, 5, 8, -14, 12]
- 
+    
+    a = str(input('What ? :'))
+    arr = []
+    for c in a:
+        arr.append(c)
     timSort(arr)
+ 
+    print("After Sorting Array is ",arr)
+    tim_TIME()
 
-
-def bubbleSort(nlist):
-    for passnum in range(len(nlist)-1,0,-1):
-        for i in range(passnum):
-            if nlist[i]>nlist[i+1]:
-                temp = nlist[i]
-                nlist[i] = nlist[i+1]
-                nlist[i+1] = temp
-
-nlist = [14,46,43,27,57,41,45,21,70]
-
-def tim_time():
-    SETUP_CODE = """from __main__ import timSort"""
-
-    TEST_CODE ="""
-nums = [14,45,43,27,57,41,45,21,70]
-timSort(nums)
-"""
-    
-    times = timeit.repeat(setup=SETUP_CODE, stmt=TEST_CODE, repeat=5, number=100000)
-    print('timSort using time: {}'.format(min(times)))
-
-def bubbleSort_time():
-    SETUP_CODE = """from __main__ import bubbleSort"""
-
-    TEST_CODE ="""
-nums = [14,45,43,27,57,41,45,21,70]
-bubbleSort(nums)
-"""
-    
-    times = timeit.repeat(setup=SETUP_CODE, stmt=TEST_CODE, repeat=5, number=100000)
-    print('BubbleSort using time: {}'.format(min(times)))
-
-if __name__ == "__main__":
-    bubbleSort_time()
-    tim_time()
