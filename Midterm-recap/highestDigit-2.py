@@ -1,7 +1,7 @@
-arr = []
 def highestDigit(x):
-    global arr
+
     BB = str(x)
+    arr = []
     for K in BB:
         arr.append(K)
     z = max(arr)
