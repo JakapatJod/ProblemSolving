@@ -1,16 +1,16 @@
-def sumTwoSmallestNums(x):
-    low1 = x[0] 
-    low2 = None
-    for i in x[1:]:     
+def sumTwoSmallestNums(x) :
+
+    x.sort()
+
+    if x[0] > 0 : 
+        return print('result : ',x[0] + x[1])
+    else : 
+
+        for i in range(len(x)) :
+
+            if x[0] < 0 : x.pop(0)
         
-        if i < low1: 
-            low2 = low1
-            low1 = i
-        elif low2 == None or low2 > i: 
-            low2 = i 
-              
-    Ans = low1+low2
-    print('Answer : ',Ans)
+        return print('result : ',x[0] + x[1])
     
 sumTwoSmallestNums([19,5,42,2,77])
 sumTwoSmallestNums([10,343445353,3453445,345354353453])
