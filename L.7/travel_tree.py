@@ -7,7 +7,7 @@ class Node:
         self.data = data
 
     def insert(self,data):
-# Compare the new data with the parent node
+# Compare the new value with the parent node
         if self.data:
             if data < self.data:
                 if self.left is None:
@@ -21,6 +21,17 @@ class Node:
                     self.right.insert(data)
         else:
             self.data = data
+            
+    def findval(self,lkval):
+        if lkval < self.data:
+            if self.left is None:
+                return str(lkval)+" Not Found"
+            return self.left.findval(lkval)
+        elif lkval > self.data:
+            if self.right is None:
+                return str(lkval)+" Not Found"
+        else:
+            print(str(self.data) + " is found ")
         
 # Print the tree
     def PrintTree(self):
@@ -68,20 +79,17 @@ class Node:
             res = res + self.inorderTravelsal(root.left)
         return res
 
+root = Node(27)
+root.insert(14)
+root.insert(35)
+root.insert(10)
+root.insert(19)
+root.insert(31)
+root.insert(42)
 
-root = Node(100)
-root.insert(50)
-root.insert(150)
-root.insert(30)
-root.insert(60)
-root.insert(120)
-
-rt = root.delete(root, 100)
-print("The data of the root is ", rt.data)
-
-
-
-#print(root.inorderTravelsal(root))
+print(root.findval(7))
+print(root.findval(14))
+print(root.inorderTravelsal(root))
 print(root.PreorderTraversal(root))
-#print(root.PostorderTravelsal(root))
+print(root.PostorderTravelsal(root))
 root.PrintTree()
