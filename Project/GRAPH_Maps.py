@@ -148,7 +148,7 @@ while again == 'y' :
             DD.append('green')
           i = i + 1
 
-        print('The distance is  : %.2f'%(A),"km")
+        print('The distance is  : %.2f'%(d),"km")
     
         print('')
 
@@ -169,20 +169,20 @@ while again == 'y' :
           h = (nx.shortest_path_length(G,source=location2,target=location3,weight='weight'))
           a1 = (nx.shortest_path(G,source=location1,target=location2,weight='weight'))
           a4 = (nx.shortest_path(G,source=location2,target=location3,weight='weight'))    
-          A = g+h # ระยะทางทั้งหมด
+          AB = g+h # ระยะทางทั้งหมด
           B1 = a1 + a4 # เส้นทาง
 
-          list1 = [A]
+          list1 = [AB]
 
           POP = [] # remove duplicate
           for i in B1:
             if i not in POP:
                 POP.append(i)
 
-          if min(list1) == A:
+          if min(list1) == AB:
             print('\tShortest path from ',location1 ,'to',location3 ,'is',POP)
 
-          print('\tThe distance is  : %.2f'%(A),"km")
+          print('\tThe distance is  : %.2f'%(AB),"km")
           
           DD = []
           i = 0
@@ -211,20 +211,20 @@ while again == 'y' :
           a4 = (nx.shortest_path(G,source=location2,target=location3,weight='weight'))
           a9 = (nx.shortest_path(G,source=location3,target=location4,weight='weight'))
 
-          A = g+h+i # ระยะทางทั้งหมด
+          ABC = g+h+i # ระยะทางทั้งหมด
           B2 = a1 +a4 +a9 # เส้นทาง
 
-          list1 = [A]
+          list1 = [ABC]
 
           POP2 = []
           for i in B2: # remove duplicate
             if i not in POP2:
                 POP2.append(i)
 
-          if min(list1) == A:
+          if min(list1) == ABC:
             print('\tShortest path from ',location1 ,'to',location4 ,'is',POP2)
 
-          print('\tThe distance is  : %.2f'%(A),"km")
+          print('\tThe distance is  : %.2f'%(ABC),"km")
          
           DD = []
           i = 0
@@ -259,19 +259,19 @@ while again == 'y' :
           a9 = (nx.shortest_path(G,source=location3,target=location4,weight='weight'))
           a13 = (nx.shortest_path(G,source=location4,target=location5,weight='weight'))
 
-          A = g+h+i+w # ระยะทางทั้งหมด
+          V = g+h+i+w # ระยะทางทั้งหมด
           B3 = a1+a4+a9+a13 # เส้นทาง
 
-          list1 = [A]
+          list1 = [V]
           POP3 = []
           
           for i in B3: # remove duplicate
             if i not in POP3:
                 POP3.append(i)
-          if min(list1) == A:
+          if min(list1) == V:
             print('\tShortest path from ',location1 ,'to',location5 ,'is',POP3)
 
-          print('\tThe distance is  : %.2f'%(A),"km")
+          print('\tThe distance is  : %.2f'%(V),"km")
          
           DD = []
           i = 0
@@ -296,9 +296,9 @@ while again == 'y' :
         target=location2,weight='weight'))
 
         x = nx.shortest_path(G,source=location1,target=location2,weight='weight')
-        d = nx.shortest_path_length(G,source=location1,target=location2,weight='weight')
+        dc = nx.shortest_path_length(G,source=location1,target=location2,weight='weight')
         print('')
-        print('The distance is  : %.2f'%(A),"km")
+        print('The distance is  : %.2f'%(dc),"km")
 
 
         DD = []
