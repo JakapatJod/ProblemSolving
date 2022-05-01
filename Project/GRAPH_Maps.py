@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
 import networkx as nx
+from tkinter import *
+from PIL import Image,ImageTk
 
 G = nx.Graph()
 
 #             
 G.add_node(1)
-G.add_node(2)
+G.add_node(2,pos=(19,10))
 G.add_node(3)
 G.add_node(4)
 G.add_node(5)
@@ -26,7 +28,7 @@ G.add_node(19)
 G.add_node(20)
 
 # สถานที่ท่องเที่ยว
-#18
+#1
 G.add_edge(18, 19, weight=0.140)
 G.add_edge(18, 13, weight=7.1)
 #19
@@ -41,7 +43,7 @@ G.add_edge(17, 13, weight=6.1)
 
 #13
 G.add_edge(13, 18, weight=7.1)
-G.add_edge(13, 19, weight=0.1)
+G.add_edge(13, 19, weight=7.7)
 G.add_edge(13, 12, weight=1.7)
 G.add_edge(13, 14, weight=3.2)
 G.add_edge(13, 17, weight=6.1)
@@ -120,69 +122,81 @@ again = 'y'
 while again == 'y' :
     print('-'*10,'Phitsanulok tourist attraction','-'*10,)
     print('')
-    print('\t\t1.Travel A ---> B')
-    print('\t\t2.Travel 5 location')
+    print('\t\t1.Show Map')
+    print('\t\t2.Travel 2-5 location')
     print('\t\t3.Present Program')
     print('')
     op = int(input('\t\tEnter the chioce : '))
     print('-'*51)
 
-    if op == 1: # TRAVEL A --> B
-        print('')
-        location1 = int(input('\tChoose your location 1 : '))
-        location2 = int(input("\tChoose your location 2 : "))
-        print('\tShortest path from ',location1 ,'to',location2 ,'is',nx.shortest_path(G,
-          source=location1,target=location2,weight='weight'))
-        nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
-
-        x = nx.shortest_path(G,source=location1,target=location2,weight='weight')
-        d = nx.shortest_path_length(G,source=location1,target=location2,weight='weight')
-        DD = []
-        i = 0
-
-        while i < len(G):
-          z = i+1
-          if z in x:
-            DD.append('red')
-          else:
-            DD.append('green')
-          i = i + 1
-
-        print('The distance is  : %.2f'%(d),"km")
-    
-        print('')
-
-        nx.draw(G, pos,node_color=DD, with_labels=True,node_size= 500)
-
-        plt.show()
+    if op == 1: # Show Map
+        img = Image.open("MAP_JAKAPAT.png")
+        img.show()
         
     if op == 2: # Travel 5 location
       
         print('')
-        T = int(input('Please select 3 - 5 places you want to go : '))
+        T = int(input('Please select 2 - 5 places you want to go : '))
         print('')
+        if T == 2:
+          location1 = int(input('\tChoose your location 1 : '))
+          location2 = int(input('\tChoose your location 2 : '))
+
+          g = (nx.shortest_path_length(G,source=location1,target=location2,weight='weight'))
+          a1 = (nx.shortest_path(G,source=location1,target=location2,weight='weight'))
+         
+          print('\tShortest path from ',location1 ,'to',location2 ,'is',a1)
+
+          print('\tThe distance is  : %.2f'%(g),"km")
+          
+          DD = []
+          i = 0
+
+          while i < len(G):
+            z = i+1
+            if z in a1:
+              DD.append('blue')
+            else:
+              DD.append('yellow')
+            i = i + 1
+
+          nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
+          nx.draw(G, pos,node_color=DD, with_labels=True,node_size= 500)
+
+          plt.show()
+
         if T == 3:
           location1 = int(input('\tChoose your location 1 : '))
           location2 = int(input('\tChoose your location 2 : '))
           location3 = int(input('\tChoose your location 3 : '))
-          g = (nx.shortest_path_length(G,source=location1,target=location2,weight='weight'))
-          h = (nx.shortest_path_length(G,source=location2,target=location3,weight='weight'))
-          a1 = (nx.shortest_path(G,source=location1,target=location2,weight='weight'))
-          a4 = (nx.shortest_path(G,source=location2,target=location3,weight='weight'))    
-          AB = g+h # ระยะทางทั้งหมด
+          datas = [location1 , location2 , location3 ]
+
+          n = len(datas)
+          for index in range(n-1): # Bubble Sort
+              for temp in range(0, n-index-1):
+                  if datas[temp] > datas[temp + 1] :
+                      datas[temp], datas[temp + 1] = datas[temp + 1], datas[temp]
+          g = (nx.shortest_path_length(G,source=datas[0],target=datas[1],weight='weight'))
+          h = (nx.shortest_path_length(G,source=datas[1],target=datas[2],weight='weight'))
+
+          a1 = (nx.shortest_path(G,source=datas[0],target=datas[1],weight='weight'))
+          a4 = (nx.shortest_path(G,source=datas[1],target=datas[2],weight='weight'))    
+
+          SUM1 = 0
+          for index in range(n) : 
+            SUM1 += datas[index]
+
           B1 = a1 + a4 # เส้นทาง
 
-          list1 = [AB]
 
           POP = [] # remove duplicate
           for i in B1:
             if i not in POP:
                 POP.append(i)
+          POP.sort()
+          print('\tShortest path from ',location1 ,'to',location3 ,'is',POP)
 
-          if min(list1) == AB:
-            print('\tShortest path from ',location1 ,'to',location3 ,'is',POP)
-
-          print('\tThe distance is  : %.2f'%(AB),"km")
+          print('\tThe distance is  : %.2f'%(SUM1 / 10),"km")
           
           DD = []
           i = 0
@@ -204,27 +218,37 @@ while again == 'y' :
           location2 = int(input('\tChoose your location 2 : '))
           location3 = int(input('\tChoose your location 3 : '))
           location4 = int(input('\tChoose your location 4 : '))
-          g = (nx.shortest_path_length(G,source=location1,target=location2,weight='weight'))
-          h = (nx.shortest_path_length(G,source=location2,target=location3,weight='weight'))
-          i = (nx.shortest_path_length(G,source=location3,target=location4,weight='weight'))
-          a1 = (nx.shortest_path(G,source=location1,target=location2,weight='weight'))
-          a4 = (nx.shortest_path(G,source=location2,target=location3,weight='weight'))
-          a9 = (nx.shortest_path(G,source=location3,target=location4,weight='weight'))
 
-          ABC = g+h+i # ระยะทางทั้งหมด
+          datas = [location1 , location2 , location3 , location4]
+
+          n = len(datas)
+          for index in range(n-1): # Bubble Sort
+              for temp in range(0, n-index-1):
+                  if datas[temp] > datas[temp + 1] :
+                      datas[temp], datas[temp + 1] = datas[temp + 1], datas[temp]
+
+          g = (nx.shortest_path_length(G,source=datas[0],target=datas[1],weight='weight'))
+          h = (nx.shortest_path_length(G,source=datas[1],target=datas[2],weight='weight'))
+          i = (nx.shortest_path_length(G,source=datas[2],target=datas[3],weight='weight'))
+          
+          a1 = (nx.shortest_path(G,source=datas[0],target=datas[1],weight='weight'))
+          a4 = (nx.shortest_path(G,source=datas[1],target=datas[2],weight='weight'))
+          a9 = (nx.shortest_path(G,source=datas[2],target=datas[3],weight='weight'))
+          SUM2 = 0
+          for index in range(n) : 
+            SUM2 += datas[index]
+
           B2 = a1 +a4 +a9 # เส้นทาง
-
-          list1 = [ABC]
 
           POP2 = []
           for i in B2: # remove duplicate
             if i not in POP2:
                 POP2.append(i)
 
-          if min(list1) == ABC:
-            print('\tShortest path from ',location1 ,'to',location4 ,'is',POP2)
+          POP2.sort
+          print('\tShortest path from ',location1 ,'to',location4 ,'is',POP2)
 
-          print('\tThe distance is  : %.2f'%(ABC),"km")
+          print('\tThe distance is  : %.2f'%(SUM2 / 10),"km")
          
           DD = []
           i = 0
@@ -249,29 +273,38 @@ while again == 'y' :
           location4 = int(input('\tChoose your location 4 : '))
           location5 = int(input('\tChoose your location 5 : '))
 
-          g = (nx.shortest_path_length(G,source=location1,target=location2,weight='weight'))
-          h = (nx.shortest_path_length(G,source=location2,target=location3,weight='weight'))
-          i = (nx.shortest_path_length(G,source=location3,target=location4,weight='weight'))
-          w = (nx.shortest_path_length(G,source=location4,target=location5,weight='weight'))
+          datas = [location1 , location2 , location3 , location4 , location5]
 
-          a1 = (nx.shortest_path(G,source=location1,target=location2,weight='weight'))
-          a4 = (nx.shortest_path(G,source=location2,target=location3,weight='weight'))
-          a9 = (nx.shortest_path(G,source=location3,target=location4,weight='weight'))
-          a13 = (nx.shortest_path(G,source=location4,target=location5,weight='weight'))
+          n = len(datas)
+          for index in range(n-1): # Bubble Sort
+              for temp in range(0, n-index-1):
+                  if datas[temp] > datas[temp + 1] :
+                      datas[temp], datas[temp + 1] = datas[temp + 1], datas[temp]
 
-          V = g+h+i+w # ระยะทางทั้งหมด
+          g = (nx.shortest_path_length(G,source=datas[0],target=datas[1],weight='weight'))
+          h = (nx.shortest_path_length(G,source=datas[1],target=datas[2],weight='weight'))
+          i = (nx.shortest_path_length(G,source=datas[2],target=datas[3],weight='weight'))
+          w = (nx.shortest_path_length(G,source=datas[3],target=datas[4],weight='weight'))
+
+          a1 = (nx.shortest_path(G,source=datas[0],target=datas[1],weight='weight'))
+          a4 = (nx.shortest_path(G,source=datas[1],target=datas[2],weight='weight'))
+          a9 = (nx.shortest_path(G,source=datas[2],target=datas[3],weight='weight'))
+          a13 = (nx.shortest_path(G,source=datas[3],target=datas[4],weight='weight'))
+
+          SUM3 = 0
+          for index in range(n) : 
+            SUM3 += datas[index]
+
           B3 = a1+a4+a9+a13 # เส้นทาง
-
-          list1 = [V]
           POP3 = []
           
-          for i in B3: # remove duplicate
+          for i in B3: # remoe duplicate
             if i not in POP3:
                 POP3.append(i)
-          if min(list1) == V:
-            print('\tShortest path from ',location1 ,'to',location5 ,'is',POP3)
 
-          print('\tThe distance is  : %.2f'%(V),"km")
+          POP3.sort()
+          print('\tShortest path from ',location1 ,'to',location5 ,'is',POP3)
+          print('\tThe distance is  : %.2f'%(SUM3 / 10),"km")
          
           DD = []
           i = 0
