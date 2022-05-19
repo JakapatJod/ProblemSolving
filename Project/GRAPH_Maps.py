@@ -193,7 +193,6 @@ while again == 'y' :
           for i in B1:
             if i not in POP:
                 POP.append(i)
-          POP.sort()
           print('\tShortest path from ',location1 ,'to',location3 ,'is',POP)
 
           print('\tThe distance is  : %.2f'%(SUM1 / 10),"km")
@@ -238,14 +237,13 @@ while again == 'y' :
           for index in range(n) : 
             SUM2 += datas[index]
 
-          B2 = a1 +a4 +a9 # เส้นทาง
+          B2 = a1 +a4 +a9 # เส้นทางA
 
           POP2 = []
           for i in B2: # remove duplicate
             if i not in POP2:
                 POP2.append(i)
 
-          POP2.sort
           print('\tShortest path from ',location1 ,'to',location4 ,'is',POP2)
 
           print('\tThe distance is  : %.2f'%(SUM2 / 10),"km")
@@ -302,7 +300,6 @@ while again == 'y' :
             if i not in POP3:
                 POP3.append(i)
 
-          POP3.sort()
           print('\tShortest path from ',location1 ,'to',location5 ,'is',POP3)
           print('\tThe distance is  : %.2f'%(SUM3 / 10),"km")
          
@@ -331,7 +328,7 @@ while again == 'y' :
         x = nx.shortest_path(G,source=location1,target=location2,weight='weight')
         dc = nx.shortest_path_length(G,source=location1,target=location2,weight='weight')
         print('')
-        print('The distance is  : %.2f'%(dc),"km")
+        print('\tThe distance is  : %.2f'%(dc),"km")
 
 
         DD = []
